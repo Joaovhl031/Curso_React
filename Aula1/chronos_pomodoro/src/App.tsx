@@ -9,7 +9,9 @@ export function App() {
   return (
     <div>
       <>
-      <Heading />
+      <Heading   at='string test'>
+        Ola
+      </Heading>
       </>
       <p>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quae obcaecati
