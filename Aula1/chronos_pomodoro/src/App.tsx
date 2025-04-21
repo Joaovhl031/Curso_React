@@ -6,19 +6,29 @@ import { CountDown } from './components/CountDown';
 import { DefaultInput } from './components/DefaultInput';
 import { Cycles } from './components/Cycles';
 import { DefaultButton } from './components/DefaultButton';
-
-import './styles/global.css';
-import './styles/theme.css';
 import { PlayCircleIcon } from 'lucide-react';
 import { Footer } from './components/Footer';
 
+import './styles/global.css';
+import './styles/theme.css';
+
+import { useState } from 'react';
+
 export function App() {
+  const [numero, setNumber] = useState(0);
+
+  function handClick() {
+    //  setNumber(prevState => prevState +1);
+     setNumber(1);
+  }
   return (
     <>
+     <Heading>
+      Numero: {numero} 
+     </Heading>
+      <button onClick={handClick}>aumenta</button>
       <Container>
-        <Heading>
           <Logo />
-        </Heading>
       </Container>
       <Container>
         <Menu></Menu>
@@ -30,7 +40,7 @@ export function App() {
         <form action='' className='form'>
           <div className='formRow'>
             <DefaultInput
-              labelText='Task:'
+              labelText={numero.toString()}
               id='meuInput'
               type='text'
               placeholder='Digite algo'
