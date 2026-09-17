@@ -9,7 +9,6 @@ import { getNextCycle } from '../../utils/getNextCycle';
 import { getNextCycleType } from '../../utils/getNextCycleType';
 import { TaskActionsTypes } from '../../context/TaskContext/taskActions';
 import { Tips } from '../Tips';
-import { TimerWorkerManager } from '../../workers/TimerWorkerManager';
 
 export function MainForm() {
   const { state, dispatch } = useTaskContext();
@@ -42,14 +41,6 @@ export function MainForm() {
     dispatch({
       type: TaskActionsTypes.START_TASK,
       payload: newTask,
-    });
-
-    const worker = TimerWorkerManager.getInstance();
-
-    worker.postMessage('Ola, worker!');
-
-    worker.onmessage(event => {
-      console.log('Worker Principal:', event.data);
     });
   }
 
