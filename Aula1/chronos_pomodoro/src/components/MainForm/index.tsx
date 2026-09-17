@@ -9,6 +9,7 @@ import { getNextCycle } from '../../utils/getNextCycle';
 import { getNextCycleType } from '../../utils/getNextCycleType';
 import { TaskActionsTypes } from '../../context/TaskContext/taskActions';
 import { Tips } from '../Tips';
+import { TimerWorkerManager } from '../../workers/TimerWorkerManager';
 
 export function MainForm() {
   const { state, dispatch } = useTaskContext();
@@ -16,9 +17,6 @@ export function MainForm() {
 
   const nextCycle = getNextCycle(state.currentCycle);
   const nextCycleType = getNextCycleType(nextCycle);
-
-
-
 
   function handleCreateNewTask(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -45,10 +43,18 @@ export function MainForm() {
       type: TaskActionsTypes.START_TASK,
       payload: newTask,
     });
+
+    const worker = TimerWorkerManager.getInstance();
+
+    worker.postMessage('Ola, worker!');
+
+    worker.onmessage(event => {
+      console.log('Worker Principal:', event.data);
+    });
   }
 
   function handleStopTask() {
-    dispatch({ type: TaskActionsTypes.STOP_TASK, });
+    dispatch({ type: TaskActionsTypes.STOP_TASK });
   }
   return [
     <form onSubmit={handleCreateNewTask} className='form' action=''>
@@ -64,7 +70,7 @@ export function MainForm() {
       </div>
 
       <div className='formRow'>
-       <Tips />
+        <Tips />
       </div>
 
       {state.currentCycle > 0 && (
