@@ -47,6 +47,16 @@ export function History() {
     dispatch({ type: TaskActionsTypes.RESET_TASK });
   }, [confirmClearHistory, dispatch]);
 
+  useEffect(() => {
+    return () => {
+      showMessage.dismiss();
+    };
+  }, []);
+
+  useEffect(() =>{  
+    document.title = 'Histórico - Chronos Pomodoro'
+  }, [])
+
   function handleSortTask({ field }: Pick<SortTaskOptions, 'field'>) {
     const newDirection = sortTaskOptions.direction === 'desc' ? 'asc' : 'desc';
 

@@ -32,7 +32,6 @@ export function Menu() {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
     return () => {
-      console.log('Clean Up');
     };
   }, [theme]);
 
@@ -56,7 +55,7 @@ export function Menu() {
       </RouterLink>
       <RouterLink
         className={styles.menuLink}
-        href='#'
+        href='/settings/'
         aria-label='Configurações'
         title='Configurações'
       >
